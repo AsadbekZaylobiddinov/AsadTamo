@@ -1,0 +1,168 @@
+﻿@page "/adminpage"
+@inject NavigationManager nv
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+    a{
+        color :black;
+    }
+    .katalog {
+        display: grid;
+        grid-template-areas:
+            "sidebar sidebar main main main main main main main";
+    }
+
+    .sidebar {
+        position: fixed;
+        grid-area: sidebar;
+        background-color: white;
+        border: 1px solid rgba(176, 176, 176, 0.35);
+        text-align: center;
+        padding-bottom: 500px;
+        width: 210px;
+    }
+
+    hr {
+        color: rgba(176, 176, 176, 0.35);
+        border: 3px solid rgba(176, 176, 176, 0.35)
+    }
+
+    .sidebar_main {
+        margin-top: 30px;
+    }
+
+    .link_nav {
+        margin-bottom: 10px;
+    }
+
+    .katalog_main {
+        padding-top: 20px;
+        grid-area: main;
+        background-color: white;
+        border: 1px solid rgba(176, 176, 176, 0.35);
+    }
+
+    .katalog-main {
+        
+    }
+    .line {
+        margin-top: 20px;
+    }
+
+    .n-link {
+        text-decoration: none;
+    }
+
+    .submit_btn {
+        margin-left: 10px;
+        box-sizing: border-box;
+        width: 100px;
+        height: 30px;
+        background: #FFFFFF;
+        border: 1px solid #FFFFFF;
+        box-shadow: -1px 0px 4px 2px rgba(0, 0, 0, 0.25);
+        border-radius: 20px;
+    }
+    .logo{
+        border:1px solid black;
+        width:186px;
+        height:49px;
+        font-size:24px;
+        text-align:center;
+        margin-bottom:35px;
+        padding-top:5px;
+        margin-left:15px;
+    }
+    hr{
+        color:black;
+        margin-bottom:50px;
+        opacity:0;
+    }
+    .head_tx{
+        margin-bottom:100px;
+        margin-top:25px;
+    }
+    </style>
+<div class="wrapper">
+    <div class="katalog">
+        <div class="sidebar">
+            <div class="sidebar_main">
+                <div class="logo">
+                    AsadTAMO
+                </div>
+                <hr />
+                <div class="link_nav">
+                    <NavLink class="n-link1" href="adminpage" Match="NavLinkMatch.All">
+                        <span class="n-link1">Barcha Yozilganlar</span>
+                    </NavLink>
+                </div><br />
+                <div class="link_nav">
+                    <NavLink class="n-link" href="adminusers"  Match="NavLinkMatch.All">
+                        Foydalanuvchilar
+                    </NavLink>
+                </div><br />
+                <div class="link_nav">
+                    <NavLink class="n-link" href="chat" Match="NavLinkMatch.All">
+                        Xabarlar
+                    </NavLink>
+                </div><br />
+                <div class="link_nav">
+                    <NavLink class="n-link" href="registr" Match="NavLinkMatch.All">
+                        Chiqish
+                    </NavLink>
+                </div> <br />
+            </div>
+        </div>
+
+        <div class="katalog_main">
+            <div class="wrapper">
+                <div class="themain">
+                    @if (notes == null)
+                    {
+                        <h1>Yuklanmoqda...</h1>
+                    }
+                    else
+                    {
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Ism </th>
+                                    <th>Familiya</th>
+                                    <th>Oy</th>
+                                    <th>Kun</th>
+                                    <th>Vaqt</th>
+                                    <th>Izoh</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var note in notes)
+                                {
+                                    <tr>
+                                        <td>@note.clt.FirstName</td>
+                                        <td>@note.clt.LastName</td>
+                                        <td>@note.Oy</td>
+                                        <td>@note.Kun</td>
+                                        <td>@note.Vaqt</td>
+                                        <td>@note.Comment</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@code {
+    List<Note> notes;
+    protected override async Task OnInitializedAsync()
+    {
+        notes = await NoteService.GetAllNotes();
+    }
+}

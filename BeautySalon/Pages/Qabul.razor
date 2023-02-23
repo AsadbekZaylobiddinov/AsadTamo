@@ -1,0 +1,297 @@
+﻿@page "/users/{cliyentId:int}/qabul"
+@inject NavigationManager nv
+@using BeautySalon.BackEnd.Domain.Entities
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    a {
+        color: black;
+    }
+
+    .katalog {
+        display: grid;
+        grid-template-areas:
+            "sidebar sidebar sidebar main main main main main main";
+    }
+
+    .sidebar {
+        position: fixed;
+        grid-area: sidebar;
+        background-color: white;
+        border: 1px solid rgba(176, 176, 176, 0.35);
+        text-align: center;
+        padding-bottom: 500px;
+        width: 210px;
+    }
+
+    hr {
+        color: rgba(176, 176, 176, 0.35);
+        border: 3px solid rgba(176, 176, 176, 0.35)
+    }
+
+    .sidebar_main {
+        margin-top: 30px;
+    }
+
+    .card_main {
+        margin-bottom: 30px;
+    }
+
+    .link_nav {
+        margin-bottom: 10px;
+    }
+
+    .katalog_main {
+        padding-top: 20px;
+        grid-area: main;
+        background-color: white;
+        border: 1px solid rgba(176, 176, 176, 0.35);
+    }
+
+    .katalog-main {
+    }
+
+    .search {
+        display: inline;
+    }
+
+    .line {
+        margin-top: 20px;
+    }
+
+    .n-link {
+        text-decoration: none;
+    }
+
+    .submit_btn {
+        margin-left: 10px;
+        box-sizing: border-box;
+        width: 100px;
+        height: 30px;
+        background: #FFFFFF;
+        border: 1px solid #FFFFFF;
+        box-shadow: -1px 0px 4px 2px rgba(0, 0, 0, 0.25);
+        border-radius: 20px;
+    }
+
+    .korzina {
+        display: inline;
+    }
+
+    .logo {
+        border: 1px solid black;
+        width: 186px;
+        height: 49px;
+        font-size: 24px;
+        text-align: center;
+        margin-bottom: 35px;
+        padding-top: 5px;
+        margin-left: 15px;
+    }
+
+    hr {
+        color: black;
+        margin-bottom: 50px;
+        opacity: 0;
+    }
+
+    .head_tx {
+        margin-bottom: 100px;
+        margin-top: 25px;
+    }
+
+    .info {
+        margin-bottom: 80px;
+        font-size: 24px;
+    }
+
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .sign_inp {
+        width: 300px;
+        height: 30px;
+        border-radius: 30px;
+        margin-bottom: 25px;
+        background-color: white;
+    }
+
+    .signup {
+        display: grid;
+        justify-content: center;
+    }
+
+    .signup_main {
+        padding-top: 30px;
+        text-align: center;
+        border-radius: 25px;
+        width: 350px;
+        border: 2px solid #B3B3B3;
+    }
+
+    button {
+        width: 300px;
+        height: 50px;
+        color: white;
+        font-weight: bold;
+        border-color: white;
+        border-radius: 30px;
+        margin-bottom: 25px;
+        background-color: black;
+    }
+
+    input {
+        font-size: 20px;
+        color: black;
+        border-color: white;
+        background-color: white;
+    }
+
+    .sign-form {
+        text-align: center;
+    }
+
+    .sign-tx {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+</style>
+<div class="wrapper">
+    <div class="katalog">
+        <div class="sidebar">
+            <div class="sidebar_main">
+                <div class="logo">
+                    AsadTAMO
+                </div>
+                <hr />
+                <div class="link_nav">
+                    <NavLink class="n-link1" href="" Match="NavLinkMatch.All">
+                        <span class="n-link1">Shaxsiy Kabinet</span>
+                    </NavLink>
+                </div><br />
+                <div class="link_nav">
+                    <NavLink class="n-link"  Match="NavLinkMatch.All">
+                        Qabulgs Yozilish
+                    </NavLink>
+                </div><br />
+                <div class="link_nav">
+                    <NavLink class="n-link" href="sozlamalar" Match="NavLinkMatch.All">
+                        Sozlamalar
+                    </NavLink>
+                </div><br />
+                <div class="link_nav">
+                    <NavLink class="n-link" href="chat" Match="NavLinkMatch.All">
+                        Bog'lanish'
+                    </NavLink>
+                </div><br />
+                <div class="link_nav">
+                    <NavLink class="n-link" href="registr" Match="NavLinkMatch.All">
+                        Chiqish
+                    </NavLink>
+                </div> <br />
+            </div>
+        </div>
+
+        <div class="katalog_main">
+            <div class="wrapper">
+                    <div class="sign-tx">
+                        <h2 class="sign-text">Qabulga Yozilish</h2>
+                    </div>
+                    <div class="signup_main">
+                    <EditForm Model="@note" OnSubmit="@AddNote" id="sign-form">
+                        <p>Oyni tanlang: </p>
+                        <InputSelect class="sign_inp" @bind-Value="@note.Oy">
+                            <option>Dekabr</option>
+                            <option>Yanvar</option>
+                            <option>Fevral</option>
+                            <option>Mart</option>
+                            <option>Aprel</option>
+                            <option>May</option>
+                            <option>Iyun</option>
+                            <option>Iyul</option>
+                            <option>Avgust</option>
+                            <option>Sentyabr</option>
+                            <option>Oktyabr</option>
+                            <option>Noyabr</option>
+                        </InputSelect>
+                       
+                        <p>Kunni tanlang</p>
+<InputSelect class="sign_inp" @bind-Value="@note.Kun">
+                                <option>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                                <option>7</option>
+                                <option>8</option>
+                                <option>9</option>
+                                <option>10</option>
+                                <option>11</option>
+                                <option>12</option>
+                                <option>13</option>
+                                <option>14</option>
+                                <option>15</option>
+                                <option>16</option>
+                                <option>17</option>
+                            <option>18</option>
+                            <option>19</option>
+                            <option>20</option>
+                            <option>21</option>
+                            <option>22</option>
+                            <option>23</option>
+                            <option>24</option>
+                            <option>25</option>
+                            <option>26</option>
+                            <option>27</option>
+                            <option>28</option>
+                            <option>29</option>
+                            <option>30</option>
+                            <option>31</option>
+</InputSelect>
+                        <p>Vaqtni tanlang: </p>
+                        <InputSelect class="sign_inp" @bind-Value="@note.Vaqt">
+                            <option>11:00</option>
+                            <option>12:00</option>
+                            <option>13:00</option>
+                            <option>14:00</option>
+                            <option>15:00</option>
+                            <option>16:00</option>
+                            <option>17:00</option>
+                            <option>18:00</option>
+                            <option>19:00</option>
+                            <option>20:00</option>
+                        </InputSelect><br />
+                        <p>Qo'shimcha izoh: </p>
+                        <InputText class="sign_inp" @bind-Value="@note.Comment"></InputText><br />
+                        <button class="submit-btn" type="submit">Qabulga yozilish</button>
+                    </EditForm>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+    [Parameter]
+    public int cliyentId { get; set; }
+    Note note = new Note();
+    private async void AddNote()
+    {
+        if(note.Vaqt == null || note.Kun == null)
+        {
+            nv.NavigateTo("warning");
+        }
+        else
+        {
+            note.clt = await Repository.GetByIdClient(cliyentId);
+            await NoteService.CreateNote(note);
+            nv.NavigateTo("success");
+        }
+       
+    }
+}

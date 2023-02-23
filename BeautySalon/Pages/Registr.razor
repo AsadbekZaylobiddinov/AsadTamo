@@ -1,0 +1,77 @@
+﻿@page "/registr"
+
+
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+    }
+
+    .page {
+        background-color: white;
+        height: 800px;
+    }
+
+    .main {
+        display: grid;
+        justify-content: center;
+    }
+
+    .registr_main {
+        width: 300px;
+        height: 70px;
+        margin-top: 200px;
+    }
+
+    .registr_btn {
+        width: 300px;
+        height: 70px;
+        background-color:white;
+        border-color:white;
+        border-radius: 20px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .registr_link {
+        color: black;
+        font-size: 20px;
+    }
+    .auth_main {
+        width: 300px;
+        height: 70px;
+        margin-top: 51px;
+    }
+
+    .auth_btn {
+        width: 300px;
+        height: 70px;
+        background-color: black;
+        border-color:black;
+        border-radius: 20px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .auth_link {
+        color: white;
+        font-size: 20px;
+    }
+</style>
+<div class="page">
+    <div class="wrapper">
+        <div class="main">
+            <div class="registr_main">
+                <button class="registr_btn">
+                    <NavLink class="registr_link" href="registr_main">Registratsiya</NavLink>
+                </button>
+            </div>
+            <div class="auth_main">
+                <button class="auth_btn">
+                    <NavLink class="auth_link" href="auth_main">Avtorizatsiya</NavLink>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+@code {
+
+}

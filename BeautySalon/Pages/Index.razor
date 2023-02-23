@@ -1,0 +1,61 @@
+﻿@page "/"
+
+<PageTitle>Index</PageTitle>
+
+<style>
+    *{
+        margin:0;
+        padding:0;
+    }
+    .page{
+        background-color:black;
+        height:800px;
+    }
+    .main{
+        display:grid;
+        justify-content:center;
+    }
+    .logo_main{
+        border:1px solid white;
+        margin-top:238px;
+        width:245px;
+        height:84px;
+        text-align:center;
+        padding-top:20px;
+    }
+    .logo_tx{
+        font-size:40px;
+        color:white;
+    }
+    .zapis{
+        width:167px;
+        height:51px;
+        margin-top:51px;
+        margin-left:40px;
+    }
+    .zapis_btn {
+        width: 167px;
+        height:51px;
+        border-radius:20px;
+        box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+
+    .zapis_link {
+        color:black;
+        font-size:20px;
+    }
+</style>
+<div class="page">
+    <div class="wrapper">
+        <div class="main">
+            <div class="logo_main">
+                 <h2 class="logo_tx">AsadTAMO</h2>
+            </div>
+            <div class="zapis">
+                <button class="zapis_btn">
+                    <NavLink class="zapis_link" href="registr">Qabulga Yozilish</NavLink>
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

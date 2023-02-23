@@ -1,0 +1,130 @@
+﻿@page "/auth_main"
+@inject NavigationManager nv
+<style>
+    * {
+        padding: 0;
+        margin: 0;
+    }
+
+    .sign_inp {
+        width: 300px;
+        height: 30px;
+        border-radius: 30px;
+        margin-bottom: 25px;
+        background-color: white;
+    }
+
+    .signup {
+        display: grid;
+        justify-content: center;
+    }
+
+    .signup_main {
+        padding-top: 30px;
+        text-align: center;
+        border-radius: 25px;
+        width: 350px;
+        border: 2px solid #B3B3B3;
+    }
+
+    .wrapper {
+        text-align: center;
+    }
+
+    button {
+        width: 300px;
+        height: 50px;
+        color: white;
+        font-weight: bold;
+        border-color: white;
+        border-radius: 30px;
+        margin-bottom: 25px;
+        background-color: black;
+    }
+
+    input {
+        font-size: 20px;
+        color: black;
+        border-color: white;
+        background-color: white;
+    }
+
+    .sign-form {
+        text-align: center;
+    }
+
+    .sign-tx {
+        margin-top: 20px;
+        margin-bottom: 20px;
+    }
+
+</style>
+<div class="signup">
+    <div class="wrapper">
+        <div class="sign-tx">
+            <h2 class="sign-text">Avtorizaysiyadan o'tish</h2>
+        </div>
+        <div class="signup_main">
+            <EditForm Model="@amodel" OnSubmit="@Auth" id="sign-form">
+                <p>Telefon Raqam</p>
+                <InputText class="sign_inp" @bind-Value="amodel.Phone"></InputText><br />
+                <p>Parol</p>
+                <InputText class="sign_inp" @bind-Value="amodel.Password"></InputText><br />
+                <button class="submit-btn" type="submit">Avtorizatsiyadan o'tish</button>
+            </EditForm>
+        </div>
+
+    </div>
+
+</div>
+@code {
+    Client cliyent;
+    AuthModel amodel = new AuthModel();
+    private async void Auth()
+    {
+        if (amodel.Phone == "" || amodel.Password == "")
+        {
+            nv.NavigateTo("warning");
+        }
+        else
+        {
+             if(amodel.Phone == "admin")
+        {
+            if(amodel.Password == "admin")
+            {
+                nv.NavigateTo("adminpage");
+            }
+            else
+            {
+                int res = await Repository.IfExists(amodel);
+                if (res == 1)
+                {
+                    cliyent = await Repository.GetByPhoneClient(amodel.Phone);
+                    nv.NavigateTo($"users/{cliyent.Id}/kabinet");
+
+                }
+                else
+                {
+                    nv.NavigateTo("404");
+                }
+            }
+        }
+        else
+        {
+            int res = await Repository.IfExists(amodel);
+        if(res == 1)
+        {
+            cliyent = await Repository.GetByPhoneClient(amodel.Phone);
+            nv.NavigateTo($"users/{cliyent.Id}/kabinet");
+
+        }
+        else
+        {
+            nv.NavigateTo("404");
+        } 
+        }
+        }
+       
+       
+    }
+}

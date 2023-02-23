@@ -1,0 +1,94 @@
+﻿@page "/registr_main"
+@inject NavigationManager nv
+<style>
+    *{
+        padding:0;
+         margin:0;
+}
+
+    .sign_inp {
+        width: 300px;
+        height: 30px;
+        border-radius: 30px;
+        margin-bottom: 25px;
+        background-color: white;
+    }
+.signup{
+    display:grid;
+    justify-content:center;
+}
+.signup_main {
+    padding-top:30px;
+    text-align:center;
+    border-radius:25px;
+    width: 350px;
+        border: 2px solid #B3B3B3;
+    }
+.wrapper{
+   text-align:center;
+}
+button {
+    width: 300px;
+    height: 50px;
+    color:white;
+    font-weight:bold;
+    border-color:white;
+    border-radius: 30px;
+    margin-bottom: 25px;
+    background-color: black;
+}
+
+input {
+    font-size: 20px;
+    color: black;
+    border-color: white;
+    background-color: white;
+}
+.sign-form{
+    text-align:center;
+}
+.sign-tx {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+</style>
+<div class="signup">
+    <div class="wrapper">
+        <div class="sign-tx">
+            <h2 class="sign-text">Ro'yxatdan o'tish </h2>
+        </div>
+        <div class="signup_main">
+            <EditForm Model="@cliyent" OnSubmit="@Sub" id="sign-form">
+                <p>Ism</p>
+                <InputText class="sign_inp" id="name" @bind-Value="cliyent.FirstName"></InputText><br />
+                <p>Familiya</p>
+                <InputText class="sign_inp" @bind-Value="cliyent.LastName"></InputText><br />
+                <p>Telefon Raqam</p>
+                <InputText class="sign_inp" @bind-Value="cliyent.Phone"></InputText><br />
+                <p>Parol</p>
+                <InputText class="sign_inp" @bind-Value="cliyent.Password"></InputText><br />
+                <button class="submit-btn" type="submit">Ro'yxatdan o'tish'</button>
+            </EditForm>
+        </div>
+
+    </div>
+
+</div>
+@code {
+        Client cliyent = new Client();
+        private async void Sub()
+        {
+            if (cliyent.FirstName == null || cliyent.LastName == null || cliyent.Phone == null || cliyent.Password == null)
+            {
+                nv.NavigateTo("warning");
+            }
+        else
+        {
+            cliyent.Id = await Repository.GetLastId();
+        await Repository.CreateClient(cliyent);
+            nv.NavigateTo("auth_main");
+        }
+        
+    }
+}

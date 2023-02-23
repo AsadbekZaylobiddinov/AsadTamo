@@ -1,0 +1,34 @@
+﻿@inject NavigationManager nv
+<style>
+    button{
+        width:70px;
+        height:30px;
+    }
+</style>
+@if(clit == null)
+{
+    <td>loading</td>
+}
+else
+{
+    <tr>
+    <td>@clit.FirstName</td>
+<td>@clit.LastName</td>
+<td>@clit.Phone</td>
+ <td>@clit.CreatedTime</td>
+ <td><button @onclick="Pere" class="del_btn">Batafsil</button></td>
+</tr>
+}
+
+@code {
+    [Parameter] public int id { get; set; }
+    Client clit;
+    private void Pere()
+    {
+        nv.NavigateTo($"adminpage/users/{id}");
+    }
+    protected override async Task OnInitializedAsync()
+    {
+        clit = await Repository.GetByIdClient(id);
+    }
+}
